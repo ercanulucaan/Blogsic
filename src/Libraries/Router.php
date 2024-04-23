@@ -7,8 +7,6 @@ class Router
 
     protected $routes = [];
     protected $params = [];
-    protected $defaultController = 'HomeController';
-    protected $defaultMethod = 'index';
 
     public function addRoute($route, $controller)
     {
@@ -19,7 +17,7 @@ class Router
     {
         $urlParts = explode('?', $url);
         $urlWithoutParams = $urlParts[0];
-        $query = isset($urlParts[1]) ? $urlParts[1] : '';
+        $query = $urlParts[1] ?? '';
 
         parse_str($query, $_GET);
 
@@ -36,10 +34,6 @@ class Router
             $this->callControllerAction('BaseController@errorView');
         }
     }
-
-
-
-
     protected function matchRoute($route, $url)
     {
         $routeParts = explode('/', $route);
@@ -58,19 +52,18 @@ class Router
                 if ($paramName === 'any') {
                     $paramValue = $urlParts[$key];
                     // :any parametresi için belirli karakterleri kontrol et
-                    if (preg_match('/^[a-zA-Z0-9~%.:_\-,\?=]+$/', $paramValue) && $paramValue !== '') {
+                    if (preg_match('/^[a-zA-Z0-9~%.:_\-,=]+$/', $paramValue) && $paramValue !== '') {
                         $params[$paramName] = $paramValue;
                     } else {
-                        // :any parametresine izin verilmeyen karakterler girilmiş, uyarı ver.
-                        echo "Hata: :any parametresine izin verilmeyen karakterler içeriyor.";
+                        // :any parametresine izin verilmeyen karakterler girilmiş.
                         return false;
                     }
                 } elseif ($paramName === 'id') {
+                    // :id parametresi için belirli karakterleri kontrol et
                     if (is_numeric($urlParts[$key])) {
                         $params[$paramName] = $urlParts[$key];
                     } else {
-                        // :id parametresine sayısal olmayan bir değer girilmiş, uyarı ver.
-                        echo "Hata: :id parametresi sayısal olmayan bir değer içermemelidir.";
+                        // :id parametresine sayısal olmayan bir değer girilmiş.
                         return false;
                     }
                 } else {

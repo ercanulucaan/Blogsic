@@ -1,6 +1,8 @@
 <?php
-return [
-    '/'                     => 'HomeController@index',
+
+$defaultRoutes = [
+    ''                      => 'HomeController@index',
+    '/anasayfa'             => 'HomeController@index',
 
     '/hakkimizda'           => 'AboutController@index',
 
@@ -13,4 +15,14 @@ return [
     '/haberler/:any'        => 'NewsController@view',
 
     '/show/:id'             => 'HomeController@show',
+];
+
+$adminRoutes = [
+    ''                  => 'Admin\DashboardController@index',
+    '/users'            => 'Admin\DashboardController@users',
+];
+
+return [
+    'default'   => $defaultRoutes,
+    'admin'     => $adminRoutes
 ];

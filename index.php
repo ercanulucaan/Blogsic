@@ -16,8 +16,14 @@ use App\Libraries\Router;
 
 $router = new Router();
 $routes = require DIR . 'src/Configs/Routes.php';
-foreach ($routes as $route => $handler) {
-    $router->addRoute($route, $handler);
+
+foreach ($routes as $group => $groupRoutes) {
+    foreach ($groupRoutes as $route => $controller) {
+        if ($group === 'admin') {
+            $route = '/admin' . $route;
+        }
+        $router->addRoute($route, $controller);
+    }
 }
 
 $router->dispatch($_SERVER['REQUEST_URI'] ?? '');
