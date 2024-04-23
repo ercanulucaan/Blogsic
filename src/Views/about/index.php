@@ -1,0 +1,12 @@
+<?= $this->loadSection('preloader') ?>
+<?= $this->loadSection('header') ?>
+<?= $this->loadSection('breadcrumbs') ?>
+<?= $this->loadSection('features') ?>
+<?= $this->loadSection('services') ?>
+<?= $this->loadSection('banner') ?>
+<?= $this->loadSection('pricing') ?>
+<?= $this->loadSection('clients') ?>
+<?= $this->loadSection('news') ?>
+<?= $this->loadSection('newsletter') ?>
+<?= $this->loadSection('footer') ?>
+<?= $this->loadSection('scroll_top') ?>

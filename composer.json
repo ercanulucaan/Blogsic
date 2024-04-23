@@ -1,0 +1,14 @@
+{
+    "name": "ercanulucaan/mvc",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ercan Ulucan",
+            "email": "ercan@ulucan.net"
+        }
+    ]
+}
