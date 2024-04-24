@@ -1,28 +1,16 @@
 <?php
+// Guest Routes
+$routes['/']                    = 'HomeController@index';
+$routes['/anasayfa']            = 'HomeController@index';
+$routes['/hakkimizda']          = 'AboutController@index';
+$routes['/hizmetlerimiz']       = 'ServicesController@index';
+$routes['/hizmetlerimiz/:any']  = 'ServicesController@view';
+$routes['/portfoy']             = 'PortfolioController@index';
+$routes['/haberler']            = 'NewsController@index';
+$routes['/haberler/:any']       = 'NewsController@view';
 
-$defaultRoutes = [
-    ''                      => 'HomeController@index',
-    '/anasayfa'             => 'HomeController@index',
+// Admin Routes
+$routes['/admin']               = 'Admin\DashboardController@index';
+$routes['/admin/reports']       = 'Admin\DashboardController@reports';
 
-    '/hakkimizda'           => 'AboutController@index',
-
-    '/hizmetlerimiz'        => 'ServicesController@index',
-    '/hizmetlerimiz/:any'   => 'ServicesController@view',
-
-    '/portfoy'              => 'PortfolioController@index',
-
-    '/haberler'             => 'NewsController@index',
-    '/haberler/:any'        => 'NewsController@view',
-
-    '/show/:id'             => 'HomeController@show',
-];
-
-$adminRoutes = [
-    ''                  => 'Admin\DashboardController@index',
-    '/users'            => 'Admin\DashboardController@users',
-];
-
-return [
-    'default'   => $defaultRoutes,
-    'admin'     => $adminRoutes
-];
+return $routes;

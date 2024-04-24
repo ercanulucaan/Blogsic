@@ -12,8 +12,8 @@ class DashboardController extends BaseController
         echo 'Admin Dashboard';
     }
 
-    public function users()
+    public function reports()
     {
-        echo 'Admin Users';
+        redirect_url('admin');
     }
 }
