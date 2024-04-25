@@ -6,7 +6,6 @@ use App\Libraries\Config;
 use App\Libraries\Session;
 use App\Libraries\Input;
 use App\Libraries\Csrf;
-use App\Libraries\Url;
 use App\Libraries\View;
 
 use App\Models\SettingsModel;
@@ -37,7 +36,7 @@ class BaseController
         }
 
         $this->view = new View($this);
-        $this->view->setLayout($this->config->get('Layout.name'));
+        $this->view->setLayout('default');
     }
 
     public function errorView()
@@ -47,6 +46,6 @@ class BaseController
             'keywords' => $this->inject['settings']['site_keywords'],
             'description' => $this->inject['settings']['site_description']
         ];
-        $this->view->render('sections/404', $this->inject);
+        $this->view->render('errors/404', $this->inject);
     }
 }

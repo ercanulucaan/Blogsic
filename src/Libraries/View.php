@@ -15,7 +15,6 @@ class View
         }
     }
 
-
     public function setLayout($layout)
     {
         $this->layout = $layout;
@@ -24,7 +23,9 @@ class View
 
     public function loadSection($file)
     {
-        $sectionFile = dirname(__DIR__) . '/Views/sections/' . $file . '.php';
+        $layoutType = ($this->layout === 'admin') ? 'admin/' : 'default/';
+
+        $sectionFile = dirname(__DIR__) . '/Views/' . $layoutType . 'sections/' . $file . '.php';
         extract($this->data);
         include $sectionFile;
     }
@@ -34,8 +35,10 @@ class View
         $this->viewPath = $viewPath;
         $this->data = $data;
 
-        $layoutFile = dirname(__DIR__) . '/Views/layouts/' . $this->layout . '.php';
-        $viewFile = dirname(__DIR__) . '/Views/' . $this->viewPath . '.php';
+        $layoutType = ($this->layout === 'admin') ? 'admin/' : 'default/';
+
+        $layoutFile = dirname(__DIR__) . '/Views/' . $layoutType . 'layouts/master.php';
+        $viewFile = dirname(__DIR__) . '/Views/' . $layoutType . $this->viewPath . '.php';
 
         if (!file_exists($layoutFile)) {
             die("Layout dosyası bulunamadı! " . $layoutFile);
