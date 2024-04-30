@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class ServicesController extends BaseController
+class ServiceController extends BaseController
 {
 
     public function index()

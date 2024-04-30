@@ -2,8 +2,6 @@
 
 namespace App\Libraries;
 
-use App\Libraries\Config;
-
 class Session
 {
     protected $config;
@@ -36,7 +34,7 @@ class Session
         return $this->sessionId;
     }
 
-    public function regenerate_id()
+    public function regenerate_id(): string
     {
         session_regenerate_id();
         $this->id();
@@ -50,7 +48,7 @@ class Session
     }
 
     public function set($key, $value = null) {
-        if (!isset($key) || empty($key)) {
+        if (empty($key)) {
             throw new \Exception("Anahtar boş bırakılamaz.", 1);
         }
 
@@ -68,7 +66,7 @@ class Session
     public function get($key)
     {
         if (!isset($_SESSION[$key])) {
-            throw new \Exception("Anahtar '{$key}' bulunamadı.", 1);
+            return null;
         }
 
         return $_SESSION[$key];
@@ -76,10 +74,10 @@ class Session
 
     public static function has($key) {
         $session = new self();
-        return $session->search($key) != null ? true : false;
+        return $session->search($key) != null;
     }
 
-    public function remove(...$key) 
+    public function remove($key)
     {
         if (is_array($key)) {
             foreach ($key as $sessionKey) {
@@ -98,12 +96,29 @@ class Session
     }
 
     protected function search($key) {
-        return $this->all()[$key];
+        return $this->all()[$key] ?? null;
     }
 
     public function destroy()
     {
         session_unset();
         $this->refresh();
+    }
+
+    public function setFlash($key, $value)
+    {
+        $this->set('flash:'.$key, $value);
+    }
+
+    public function getFlash($key)
+    {
+        $flashKey = 'flash:'.$key;
+        $flashValue = $this->get($flashKey);
+        $this->remove($flashKey);
+        return $flashValue;
+    }
+    public function hasFlashData(): bool
+    {
+        return array_key_exists('flash:status', $_SESSION) && array_key_exists('flash:title', $_SESSION) && array_key_exists('flash:message', $_SESSION);
     }
 }

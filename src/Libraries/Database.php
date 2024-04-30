@@ -63,7 +63,7 @@ class Database
 
         $result = $this->mysqli->query($this->query);
 
-        if ($result->num_rows > 0) {
+        if (!empty($result->num_rows) && $result->num_rows > 0) {
             $data = $result->fetch_object();
             if (!empty($key) && isset($data->$key)) {
                 return $data->$key;
@@ -94,6 +94,10 @@ class Database
 
     public function insert($table, $data)
     {
+        if (!$this->mysqli) {
+            $this->connect();
+        }
+
         $columns = implode(', ', array_keys($data));
         $values = "'" . implode("', '", array_values($data)) . "'";
         $sql = "INSERT INTO $table ($columns) VALUES ($values)";
@@ -108,6 +112,10 @@ class Database
 
     public function update($table, $data, $id)
     {
+        if (!$this->mysqli) {
+            $this->connect();
+        }
+
         $set = '';
         foreach ($data as $column => $value) {
             $value = $this->mysqli->real_escape_string($value);
@@ -127,6 +135,10 @@ class Database
 
     public function delete($table, $id)
     {
+        if (!$this->mysqli) {
+            $this->connect();
+        }
+
         $sql = "DELETE FROM $table WHERE id = $id";
 
         if ($this->mysqli->query($sql) === TRUE) {

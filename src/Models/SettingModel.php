@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class SettingsModel extends BaseModel
+class SettingModel extends BaseModel
 {
 
     protected $table = 'settings';
@@ -15,17 +15,17 @@ class SettingsModel extends BaseModel
 
     public function getAllSettings()
     {
-        return $this->db->select('*')->from($this->table)->getAll();
+        return $this->db->select()->from($this->table)->getAll();
     }
 
     public function getSettingById($id)
     {
-        return $this->db->select('*')->from($this->table)->where($this->primary, $id)->getOne();
+        return $this->db->select()->from($this->table)->where($this->primary, $id)->getOne();
     }
 
     public function getSettingValByKey($key)
     {
-        return $this->db->select('*')->from($this->table)->where('item_key', $key)->getOne('item_val');
+        return $this->db->select()->from($this->table)->where('item_key', $key)->getOne('item_val');
     }
 
     public function insertSetting($data)

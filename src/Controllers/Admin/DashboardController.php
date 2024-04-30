@@ -11,6 +11,10 @@ class DashboardController extends BaseController
     {
         parent::__construct();
         $this->view->setLayout('admin');
+        if(!$this->auth->isLoggedIn())
+        {
+            redirect_url('admin/auth/login');
+        }
     }
 
     public function index()
@@ -23,8 +27,4 @@ class DashboardController extends BaseController
         $this->view->render('dashboard/index', $this->inject);
     }
 
-    public function reports()
-    {
-        redirect_url('admin');
-    }
 }

@@ -10,9 +10,24 @@ class Input
         return self::sanitize($_GET[$key] ?? $default);
     }
 
-    public function post($key, $default = null)
+    public function post($key = null, $default = null)
     {
-        return self::sanitize($_POST[$key] ?? $default);
+        if(!empty($key))
+        {
+            return self::sanitize($_POST[$key] ?? $default);
+        }
+        else
+        {
+            if(!empty($_POST))
+            {
+                $posts = [];
+                foreach($_POST as $key => $value)
+                {
+                    $posts[$key] = self::sanitize($value ?? $default);
+                }
+                return $posts;
+            }
+        }
     }
 
     public function request($key, $default = null)

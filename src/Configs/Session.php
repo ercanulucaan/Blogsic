@@ -2,7 +2,7 @@
 
 return [
     'name'          => 'ulucan_sessions',
-    'time'          => 7200,
+    'time'          => 900,
     'cache_expire'  => 90,
     'cache_limiter' => 'public'
 ];
